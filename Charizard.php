@@ -8,7 +8,7 @@ class Charizard {
     }
 
     // Here we go.
-    function run($urls) {
+    function run() {
         // Now we take $path from PATH_INFO
         $path = $_SERVER['PATH_INFO'];
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
