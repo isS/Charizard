@@ -1,8 +1,18 @@
 <?php
 class parser {
     function __construct() {
-        $this->path = $_SERVER['PATH_INFO'];
+        # NEED more testing...
+        $this->path = preg_replace('/\\?.*$/', '', $_SERVER['REQUEST_URI']);
         $this->method = strtoupper($_SERVER['REQUEST_METHOD']);
+        $this->self = preg_replace('/'.SCRIPT_NAME.'/', '', $_SERVER['SCRIPT_NAME']);
+    }
+
+    function get_self() {
+        if (isset($this->self)) {
+            return $this->self;
+        }
+
+        return false;
     }
 
     function get_path() {
