@@ -55,6 +55,7 @@ class Charizard {
         $this->parser = $this->load_plugin("parser");
         $this->status_coder = $this->load_plugin("status_coder");
 
+        $this->self = $this->parser->get_self();
         $path = $this->parser->get_path();
         if ($path == false) {
             $this->status_coder->not_found();
@@ -66,7 +67,7 @@ class Charizard {
 
         foreach($this->urls as $regex => $class) {
             $regex = str_replace('/', '\/', $regex);
-            $regex = '^' . $regex . '\/?$';
+            $regex = '^.*' . $regex . '\/?$';
 
             $found = false;
             
