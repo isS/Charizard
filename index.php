@@ -27,7 +27,7 @@ class welcome {
 class cookiejar {
     function GET() {
         $sess = Charizard::load('sessioner');
-        $key = 74107410;
+        $key = 'blahblah';
         $sess->create($key, 600);
         echo "cookie set <br />";
     }
@@ -36,7 +36,7 @@ class cookiejar {
 class cookiestore {
     function GET() {
         $sess = Charizard::load('sessioner');
-        $key = 74107410;
+        $key = 'blahblah';
         $cookie = $sess->get($key);
         var_dump($cookie);
         $sess->destory();
