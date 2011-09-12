@@ -1,4 +1,7 @@
 <?php
+// TODO 
+// * testing, testing and testing
+
 class status_coder {
     function set_status_code($code = 200, $message = '') {
         if ($code == '' || !is_numeric($code)) {
@@ -64,6 +67,75 @@ class status_coder {
         $this->accepted($message);
     }
 
+    // TODO need to set status code ?
+    // 301
+    function redirect($newloc, $base_url = '', $message = '') {
+        if ($message == '') {
+            $message = 'Moved Permanently';
+        }
+
+        if ($newloc[0] === '/') {
+            if ($base_url[strlen($base_url)] === '/') {
+                $newloc = substr($newloc, 1);
+            }
+            $newloc = $base_url . $newloc;
+        }
+
+        header("Location: $newloc");
+    }
+
+    function _301($newloc, $base_url = '', $message = '') {
+        $this->redirect($newloc, $base_url, $message);
+    }
+
+    // 302
+    function found($newloc, $base_url = '', $message = '') {
+        if ($message == '') {
+            $message = 'Found';
+        }
+        $this->redirect($newloc, $base_url, $message);
+    }
+
+    function _302($newloc, $base_url = '', $message = '') {
+        $this->_302($newloc, $base_url, $message);
+    }
+
+    // 303
+    function seeother($newloc, $base_url = '', $message = '') {
+        if ($message == '') {
+            $message = 'See Other';
+        }
+        $this->redirect($newloc, $base_url, $message);
+    }
+
+    function _303($newloc, $base_url = '', $message = '') {
+        $this->seeother($newloc, $base_url, $message);
+    }
+
+    // 304
+    function not_modified($message = '') {
+        if ($message == '') {
+            $message = 'Not Modified';
+        }
+        $this->set_status_code(304, $message);
+    }
+
+    function _304($message = '') {
+        $this->not_modified($message);
+    }
+
+    // 307
+    function temp_redirect($newloc, $base_url = '', $message = '') {
+        if ($message == '') {
+            $message = 'Temporary Redirect';
+        }
+        $this->redirect($newloc, $base_url, $message);
+    }
+
+    function _307($newloc, $base_url = '', $message = '') {
+        $this->temp_redirect($newloc, $base_url, $message);
+    }
+
     // 400
     function bad_request($message = '') {
         if ($message == '') {
@@ -73,7 +145,7 @@ class status_coder {
         $this->set_status_code(400, $message);
     }
 
-    function _400($message) {
+    function _400($message = '') {
         $this->bad_request($message);
     }
 
@@ -86,7 +158,7 @@ class status_coder {
         $this->set_status_code(401, $message);
     }
 
-    function _401($message) {
+    function _401($message = '') {
         $this->unauthorized($message);
     }
 
@@ -99,7 +171,7 @@ class status_coder {
         $this->set_status_code(403, $message);
     } 
 
-    function _403($message) {
+    function _403($message = '') {
         $this->forbidden($message);
     }
 
@@ -114,7 +186,7 @@ class status_coder {
         exit;
     }
 
-    function _404($message) {
+    function _404($message = '') {
         $this->not_found($message);
     }
 
@@ -127,7 +199,7 @@ class status_coder {
         $this->set_status_code(405, $message);
     }
 
-    function _405($message) {
+    function _405($message = '') {
         $this->method_not_allowed($message);
     }
 
@@ -140,7 +212,7 @@ class status_coder {
         $this->set_status_code(406, $message);
     }
 
-    function _406($message) {
+    function _406($message = '') {
         $this->not_acceptable($message);
     }
 
@@ -153,7 +225,7 @@ class status_coder {
         $this->set_status_code(409, $message);
     }
 
-    function _409($message) {
+    function _409($message = '') {
         $this->conflict($message);
     }
 
