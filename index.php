@@ -1,56 +1,23 @@
 <?php
-require_once("Charizard.php");
+define('BASEPATH', realpath(dirname(__FILE__)));
+define('EXT', '.php');
+define('PLUGINS', realpath(BASEPATH.'/plugins').'/');
+define('TPL', realpath(BASEPATH.'/tpl').'/');
+define('LOGFILE', realpath(BASEPATH.'log.txt'));
+
+require_once('Charizard'.EXT);
 
 $urls = array(
-    '/' => 'index',
-    '/welcome/([0-9a-zA-Z.]+)' => 'welcome',
-    '/redirect' => 'redirect',
-    '/cookiejar' => 'cookiejar',
-    '/cookiestore' => 'cookiestore',
+    '/name/dude' => 'dude',
+    '/words' => 'hello'
 );
 
-class index {
+class dude {
     function GET() {
-        echo 'Hello dude =)';
-
-        return;
+        $s = Charizard::load('status_coder');
+        $s->_301('lol');
     }
 }
 
-class welcome {
-    function GET($name) {
-        echo "Hello $name.";
-        return;
-    }
-}
-
-class cookiejar {
-    function GET() {
-        $sess = Charizard::load('sessioner');
-        $key = 'blahblah';
-        $sess->create($key, 600);
-        echo "cookie set <br />";
-    }
-}
-
-class cookiestore {
-    function GET() {
-        $sess = Charizard::load('sessioner');
-        $key = 'blahblah';
-        $cookie = $sess->get($key);
-        var_dump($cookie);
-        $sess->destory();
-        echo "cookie destory<br />";
-    }
-}
-
-class redirect {
-    function GET() {
-        $status = Charizard::load('status_coder');
-        $status->_301('http://www.google.com', Charizard::$base_url);
-    }
-}
-
-Charizard::$log = false;
-Charizard::run($urls);
+Charizard::run($urls, '', true);
 ?>
