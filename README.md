@@ -2,6 +2,9 @@
 What I need is just a simple router. =)
 More superb usage is coming.
 
+### v0.2
+I can fly now!
+
 ### v0.1.1
 Charizard::run & Charizard::load finished, and some base stuff is available.
 But need to rewrite some of them.

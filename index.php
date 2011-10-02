@@ -17,6 +17,7 @@ class about_handler {
         $render = Charizard::load('render');
         $template_values = array(
             'title' => 'Charizard',
+            'version' => 'v0.2',
             'u' => Charizard::load('url_helper')
         );
         $path = 'inner.html';
