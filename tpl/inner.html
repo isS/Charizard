@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{{ u.build('/static/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ u.build('/static/style.css') }}" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="container">
+                <div class="content">
+                    <div class="header">
+                        <h1>{{ title }}</h1>
+                        <small>A simple router</small>
+                    </div>
+                    <section id="about">
+                        <div class="page-header">
+                            <h1>About</h1>
+                        </div>
+                            <p>当我们在 Model, View, Controller 之间无穷尽地配置、配置、配置的时候，是否会发现自己没搞懂在弄什么？</p>
+
+                            <p>是我们驾驭框架来展现思维风暴，而不是用框架来束缚自己的创造力。</p>
+
+                            <p>或者我们需要的仅仅是一个简单的 URL router ?</p>
+                    </section>
+                    <section id="fork">
+                        <div class="page-header">
+                            <h1>Fork</h1>
+                        </div>
+                        <p>{{ title }}  目前托管在 Github 上, 欢迎你去 Watch\Fork 一份</p>
+                        <p>最新版本: v0.1</p>
+                        <a href="#" class="btn large danger">Fork {{ title }}</a>
+                    </section>
+                    <section id="contact">
+                        <div class="page-header">
+                        	<h1>Contact</h1>
+                        </div>
+                        <p>{{ title }} 的发展需要你的批评和指导,欢迎给我发一个 <a href="mailto:bcxxxxxx@gmail.com">email</a></p>
+                    </section>
+                    <section id="rock">
+                    	<div class="page-header">
+                    		<h1>Rock</h1>
+                        </div>
+                        <p>文档,样例即将出炉 =)</p>
+                        <p>其实这里就是一个生猛的例子啦!</p>
+                    </section>
+                </div>
+            </div>
+            <footer>
+                <p>&copy; hbc =) 2011</p>
+                <p>Look at the star, look how they shine for you.</p>
+            </footer>
+        </div>
+    </body>
+</html>

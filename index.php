@@ -8,14 +8,31 @@ define('LOGFILE', realpath(BASEPATH.'log.txt'));
 require_once('Charizard'.EXT);
 
 $urls = array(
-    '/name/dude' => 'dude',
-    '/words' => 'hello'
+    '/' => 'index_handler',
+    '/about' => 'about_handler',
 );
 
-class dude {
+class about_handler {
     function GET() {
-        $s = Charizard::load('status_coder');
-        $s->_301('lol');
+        $render = Charizard::load('render');
+        $template_values = array(
+            'title' => 'Charizard',
+            'u' => Charizard::load('url_helper')
+        );
+        $path = 'inner.html';
+        echo $render->rende($path, $template_values);
+    }
+}
+
+class index_handler {
+    function GET() {
+        $render = Charizard::load('render');
+        $template_values = array(
+            'title' => 'Charizard',
+            'u' => Charizard::load('url_helper')
+        );
+        $path = 'index.html';
+        echo $render->rende($path, $template_values);
     }
 }
 

@@ -1,0 +1,82 @@
+html, body {
+    background-color: #eee;
+}
+
+body {
+    margin-top: 10px;
+}
+
+a {
+    color: #c43c35;
+}
+
+a:hover {
+    color: #c43c35;
+    text-decoration: none;
+}
+
+a.btn {
+    color: #fff !important;
+}
+
+.container {
+    width: 820px; /* 14 columns */
+}
+
+footer p {
+    text-align: center;
+    color: #999;
+}
+
+.content {
+    background-color: #fff;
+    padding: 5px 20px 20px;
+    margin: 0 -20px;
+    min-height: 600px;
+    
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+
+}
+
+.header {
+    background-color: #c43c35;
+    padding: 20px 20px 10px;
+    margin: 20px -25px 20px;
+    color: #fff;
+
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#ee5f5b), to(#c43c35));
+    background-image: -moz-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: -ms-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee5f5b), color-stop(100%, #c43c35));
+    background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
+    background-image: linear-gradient(top, #ee5f5b, #c43c35);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5f5b', endColorstr='#c43c35', GradientType=0);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    border-color: #c43c35 #c43c35 #882a25;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.header > h1 {
+    color: #fff;
+}
+
+.header > small {
+    padding-left: 10px;
+}
+
+section {
+    padding: 5px 0;
+}
