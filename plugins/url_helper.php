@@ -63,7 +63,9 @@ class url_helper {
         if (is_array($query)) {
             $result .= '?';
             foreach ($query as $key => $value) {
-                $result .= "$key=$value" . '&';
+                if ($value) {
+                    $result .= "$key=$value" . '&';
+                }
             }
             $result = substr($result, 0, -1);
         }
