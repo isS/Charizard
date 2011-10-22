@@ -1,0 +1,214 @@
+# Charizard
+
+ 一个轻量级的 URL Router
+
+###  写在最前
+
+当我们在庞大而全能的 MVC 面前配置得头昏脑涨的时候,是否会感到迷失方向?
+
+如果你的答案是 *是*, 或许 Charizard 能给你新的体验 =)
+
+### Hello World!
+
+用一个传统的 MVC 框架写一个 Hello World 要多少行呢?
+
+在 Charizard 里,我们只要*21*行.
+
+    <?php
+    define('BASEPATH', realpath(dirname(__FILE__)));
+    define('EXT', '.php');
+    define('PLUGINS', realpath(BASEPATH.'/plugins').'/');
+    define('TPL', realpath(BASEPATH.'/tpl').'/');
+    define('LOGFILE', realpath(BASEPATH.'log.txt'));
+
+    require_once('Charizard'.EXT);
+
+    $urls = array(
+        '/' => 'hello_world',
+    );
+
+    class hello_world {
+        function GET() {
+            echo 'Hello World!';
+        }
+    }
+
+    Charizard::run($urls);
+    ?>
+
+在 Charizard 的世界里,一切都那么简单.
+
+
+下面就开始简单的飞行训练吧.
+
+### 安装
+
+Charizard 现在托管在 [Github](https://github.com/bcxx/Charizard) 上,欢迎去clone 一份.
+
+    git clone git@github.com:bcxx/Charizard.git
+
+然后将 Charizard 扔到你的服务器[0]上,开始飞行吧.
+
+#### mod\_rewrite
+
+为了实现单入口以及控制文件的隐藏,我们需要用到 Apache 的 mod\_rewrite:
+
+    # 需要改进和测试
+    RewriteEngine On
+    RewriteBase /your_application_path/
+    RewriteRule ^(setup\.|README|private/|includes/) - [F,L]
+    RewriteCond $1 ^(index\.php|static)
+    RewriteRule ^(.*)$ - [PT,L]
+    RewriteRule . index.php
+
+
+### 天地玄黄 宇宙洪荒
+
+在我们的 hello world 中,首先要介绍开头的那一大堆 define:
+
+在 Charizard 运行过程中,我们采用一种插件机制去将其他功能组装起来(例如 Controller 和 View 的渲染.后面我们会谈到这个机制.),而这些插件在一定程度上依赖到这些预定义.
+
+例如 TPL 是模板文件的位置.我们的 render 将靠它来找到模板文件的地点.
+
+值得注意的是, BASEPATH, EXT, PLUGINS 是 Charizard 运行必不可少的预定义,涉及到 Charizard 核心文件的位置,插件类的后缀名和插件的位置.
+
+为了避免可能出现的其他任何问题,留着它们就可以了[1].
+
+然后我们就添加上这行:
+
+    require_once('Charizard'.EXT);
+
+一切就绪了.
+
+### URLs
+
+现在我们可以开始着手设计 URL 了. 在 Charizard 中,我们用一个 array 来储存这些"钥匙":
+
+    $urls = array(
+        '/' => 'index_handler',
+        '/hello' => 'hello_handler',
+        '/blahblah.blah' => 'blah_handler'
+    );
+
+当然,我们可以借助正则表达式来匹配更多的情况:
+
+    $urls = array(
+        '/' => 'index_handler',
+        '/article/[a-zA-Z0-9]+.html' => 'article_handler'
+    );
+
+
+当我们得到一个请求时, Charizard 会找到对应的
+Controller,如果使用了正则表达式,正则表达式的匹配结果将会传递给 Controller:
+
+    class article_handler {
+        function GET($name = '') {
+            if ($name !== '') {
+                print "Hello $name";
+            } else {
+                print "Hello World!";
+            }
+        }
+    }
+
+
+### GET 和 POST
+
+关于 GET 和 POST 的区别,[这里](http://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE#.E8.AF.B7.E6.B1.82.E6.96.B9.E6.B3.95)解释很清晰了.
+
+当你要用 GET 方法时,就在你的 Controller 中增添一个 GET 方法好了,以此类推.
+
+### 开始飞行
+
+在 URL, Controller 都一应俱全的时候,让我们再一次检查代码,看看是否有什么笔误.然后在最后添加上一句:
+
+    Charizard::run($urls);
+
+打开你的浏览器,浏览你的 hello world 吧(记住在心中默念 All is well!).
+
+如果一切都好,将会显示:
+
+    Hello World!
+
+于是乎我们的处女航就成功了. =)
+
+### load 和 plugins
+
+
+#### load
+
+前面提到 Charizard 使用插件机制实现一些简单的功能,就是下面要出场的 load 了.
+
+我们通过调用 load 来取得装备:
+
+    $my_powerful_plugin = Charizard::load('my_powerful_plugin');
+
+然后就可以在 Controller 里随意地使用了.
+
+#### plugins
+
+我们的 plugins 是一个类,类文件位于 plugins 下.
+
+要编写自己的 plugins,只要遵循以下*一*条规则:
+
+1. 类文件的名字和你的插件名字相同.
+
+就好像下面的例子:
+
+    class my_powerful_plugin {
+        function __construct($param = false) {
+            if ($param) {
+                foreach($param as $arg => $value) {
+                    $this->$arg = $value;
+                }
+            }
+        }
+
+        function fire() {
+            echo "Fire!";
+        }
+    }
+
+在 Charizard 里,一切功能都由你自己来实现和掌控,每一行都是你自己最熟悉的代码.[2]
+
+同时需要注意的是, Charizard 的基本功能就只有一个 load ,连 run 也是依靠 runner 这个插件的.所以,请保证 runner, requester, status\_coder [3] 的完整性.
+
+另外我们还配备了几个简单的配件,例如:
+
+  * logger 提供一个暂时还不能使用的日志功能; [4]
+
+  * render 提供 [Twig]() 模板渲染的功能;
+
+  * sessioner 提供一个简单而且*不安全*的 session;
+
+  * url\_helper 提供 url 的构建功能;
+
+### 总结
+
+到这里, Charizard 的第一节飞行课程已经完成了.也许你在中途就明白了飞行的原理没有认真看下去,但是更重要的是,希望你能体会到 php 开发的乐趣. =)
+
+### 联系
+
+在练习过程中出现问题了?给我一个 mail 吧,我会尽可能地帮助你的.我也很乐意和你交朋友.
+
+当然,对于你的批评和建议,我一直在等待.
+
+    bcxxxxxx@gmail.com
+
+### LICENSE
+
+还没有想好用什么授权呢,或许 [Copyleft](http://en.wikipedia.org/wiki/Copyleft) 就足够了.
+
+在 Charizard 运行过程中,我们采用一种插件机制去将其他功能组装起来(例如 Controll和 View 的渲染.后面我们会谈到这个机制.),而这些插件在一定程度上依赖到这些预定义.
+
+### 脚注
+
+[0] 目前 Charizard 只在 Apache 上测试过,希望大家能提供其他品牌服务器测试情况.
+
+[1] 当然,你也可以随意添加你需要的预定义.
+
+[2] 当然,你的代码太"晦涩"的话,一个星期后你会被咒骂自己的.
+
+[3] runner 负责的是执行请求, requester 负责的是分析请求, status\_coder则是起到处理 header 的作用.
+
+[4] logger 将使用文件来记录日志,而在文件 I\O 方面仍然需要研究.
